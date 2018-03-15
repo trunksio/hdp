@@ -1,0 +1,52 @@
+version: '2'
+services:
+  ambari:
+    image: ambari
+    hostname: ambari
+    ports:
+      - 8080:8080 
+      - 8888:8888 
+      - 8088:8088 
+      - 9995:9995
+      - 50070:50070
+      - 8440
+      - 8441
+      - 8670
+    privileged: true
+    command: /ambaristart.sh
+  agent1:
+    image: ambari
+    hostname: agent1
+    ports:
+      - 2181
+    volumes:
+      - /data/ambari/agent1/:/data
+    ulimits:
+        nofile: 262144
+        memlock: 2000000000
+    privileged: true
+    command: /agentstart.sh
+  agent2:
+    image: ambari
+    hostname: agent2
+    ports:
+      - 2181
+    volumes:
+      - /data/ambari/agent2/:/data
+    ulimits:
+        nofile: 262144
+        memlock: 2000000000
+    privileged: true
+    command: /agentstart.sh
+  agent3:
+    image: ambari
+    hostname: agent3
+    ports:
+      - 2181
+    ulimits:
+        nofile: 262144
+        memlock: 2000000000
+    volumes:
+      - /data/ambari/agent3/:/data
+    privileged: true
+    command: /agentstart.sh
